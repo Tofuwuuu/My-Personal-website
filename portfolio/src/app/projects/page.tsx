@@ -4,10 +4,10 @@ import Link from "next/link";
 const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    description: "A full-stack e-commerce solution built with Next.js, Node.js, and MongoDB. Features include user authentication, product management, shopping cart, and payment processing.",
-    technologies: ["Next.js", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
+    title: "Alumni Profile & Document Verification System",
+    category: "Blockchain",
+    description: "A permissioned blockchain-powered alumni management system for Cavite State University. Features include secure user authentication, role-based access control (alumni, admin, verifier), profile creation, document upload & verification, an immutable ledger of credentials, and an admin dashboard for monitoring job placements and verification history.",
+    technologies: ["Vite", "React", "JavaScript", "FastAPI", "MongoDB", "Hyperledger Fabric", "Web3.js"],
     image: "/placeholder.jpg",
     demoLink: "#",
     githubLink: "#"
@@ -66,39 +66,55 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6 text-center">My Projects</h1>
-      <p className="text-xl text-gray-600 dark:text-gray-300 text-center mb-12 max-w-3xl mx-auto">
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-5xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 animate-fade-in">
+        My Projects
+      </h1>
+      <p className="text-xl text-gray-600 dark:text-gray-300 text-center mb-16 max-w-3xl mx-auto leading-relaxed animate-fade-in-delay">
         A collection of my recent work spanning web applications, mobile apps, and design projects.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <div key={project.id} className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-              <span className="text-gray-500 dark:text-gray-400">Project Image</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {projects.map((project, index) => (
+          <div 
+            key={project.id} 
+            className={`rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 flex flex-col h-full transform hover:-translate-y-2 animate-fade-in-up`}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <div className="h-56 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden">
+              <span className="text-white text-xl font-medium">Project Image</span>
             </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start">
-                <h3 className="text-xl font-semibold">{project.title}</h3>
-                <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">{project.category}</span>
+            <div className="p-7 flex flex-col flex-grow">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-2xl font-bold">{project.title}</h3>
+                <span className="text-xs font-semibold bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full">{project.category}</span>
               </div>
-              <p className="mt-4 mb-6 text-gray-600 dark:text-gray-300">{project.description}</p>
+              <p className="mb-6 text-gray-600 dark:text-gray-300 flex-grow">{project.description}</p>
               <div className="mb-6">
-                <h4 className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Technologies:</h4>
+                <h4 className="text-sm font-bold mb-3 text-gray-700 dark:text-gray-300 uppercase tracking-wider">Technologies:</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
-                    <span key={index} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                    <span key={index} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium px-3 py-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="flex justify-between">
-                <a href={project.demoLink} className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+              <div className="flex justify-between gap-4 mt-auto">
+                <a 
+                  href={project.demoLink} 
+                  className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex-1 transition-colors" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
                   Live Demo
                 </a>
-                <a href={project.githubLink} className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={project.githubLink} 
+                  className="text-gray-900 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex-1 transition-colors" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
                   GitHub
                 </a>
               </div>
