@@ -1,20 +1,110 @@
+"use client";
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const isActive = (path: string) => pathname === path;
+
   return (
-    <header className="bg-gray-900 text-white shadow-md">
-      <div className="container mx-auto px-4 py-6">
+    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+      scrolled ? "bg-gray-900/90 backdrop-blur-md shadow-lg py-3" : "bg-gray-900 py-6"
+    }`}>
+      <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">My Portfolio</Link>
-          <nav>
-            <ul className="flex space-x-6">
-              <li><Link href="/" className="hover:text-blue-400 transition">Home</Link></li>
-              <li><Link href="/about" className="hover:text-blue-400 transition">About</Link></li>
-              <li><Link href="/projects" className="hover:text-blue-400 transition">Projects</Link></li>
-              <li><Link href="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
+          <Link href="/" className="text-2xl font-bold text-white relative group">
+            My Portfolio
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden text-white focus:outline-none"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+          
+          {/* Desktop navigation */}
+          <nav className="hidden md:block">
+            <ul className="flex space-x-8">
+              {[
+                { path: '/', label: 'Home' },
+                { path: '/about', label: 'About' },
+                { path: '/projects', label: 'Projects' },
+                { path: '/contact', label: 'Contact' }
+              ].map((item) => (
+                <li key={item.path}>
+                  <Link 
+                    href={item.path} 
+                    className={`relative font-medium transition group ${
+                      isActive(item.path) 
+                        ? "text-blue-400" 
+                        : "text-white hover:text-blue-200"
+                    }`}
+                  >
+                    {item.label}
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-300 ${
+                      isActive(item.path) ? "w-full" : "w-0 group-hover:w-full"
+                    }`}></span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
+        
+        {/* Mobile navigation */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden mt-4 pb-4">
+            <ul className="flex flex-col space-y-4">
+              {[
+                { path: '/', label: 'Home' },
+                { path: '/about', label: 'About' },
+                { path: '/projects', label: 'Projects' },
+                { path: '/contact', label: 'Contact' }
+              ].map((item) => (
+                <li key={item.path}>
+                  <Link 
+                    href={item.path} 
+                    className={`block py-2 px-4 rounded ${
+                      isActive(item.path)
+                        ? "bg-blue-900/50 text-blue-300"
+                        : "text-white hover:bg-gray-800"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </div>
     </header>
   );
