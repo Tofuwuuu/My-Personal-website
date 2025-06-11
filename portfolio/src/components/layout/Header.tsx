@@ -24,13 +24,15 @@ const Header = () => {
 
   return (
     <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      scrolled ? "bg-gray-900/90 backdrop-blur-md shadow-lg py-3" : "bg-gray-900 py-6"
+      scrolled 
+        ? "bg-gradient-to-r from-gray-900 via-blue-950 to-gray-900 shadow-lg py-3" 
+        : "bg-gradient-to-r from-gray-900 via-blue-950 to-gray-900 py-5"
     }`}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-white relative group">
-            My Portfolio
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          <Link href="/" className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 relative group">
+            <span className="group-hover:animate-pulse">My Portfolio</span>
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-300 transition-all duration-300 group-hover:w-full"></span>
           </Link>
           
           {/* Mobile menu button */}
@@ -51,7 +53,7 @@ const Header = () => {
           
           {/* Desktop navigation */}
           <nav className="hidden md:block">
-            <ul className="flex space-x-8">
+            <ul className="flex space-x-10">
               {[
                 { path: '/', label: 'Home' },
                 { path: '/about', label: 'About' },
@@ -61,14 +63,14 @@ const Header = () => {
                 <li key={item.path}>
                   <Link 
                     href={item.path} 
-                    className={`relative font-medium transition group ${
+                    className={`relative font-medium tracking-wide transition-all duration-200 group ${
                       isActive(item.path) 
                         ? "text-blue-400" 
-                        : "text-white hover:text-blue-200"
+                        : "text-gray-300 hover:text-blue-300"
                     }`}
                   >
                     {item.label}
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-300 ${
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-300 transition-all duration-300 ${
                       isActive(item.path) ? "w-full" : "w-0 group-hover:w-full"
                     }`}></span>
                   </Link>
@@ -80,7 +82,7 @@ const Header = () => {
         
         {/* Mobile navigation */}
         {mobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4">
+          <nav className="md:hidden mt-4 pb-4 border-t border-gray-700 pt-3">
             <ul className="flex flex-col space-y-4">
               {[
                 { path: '/', label: 'Home' },
@@ -91,10 +93,10 @@ const Header = () => {
                 <li key={item.path}>
                   <Link 
                     href={item.path} 
-                    className={`block py-2 px-4 rounded ${
+                    className={`block py-2 px-4 rounded transition-all duration-200 ${
                       isActive(item.path)
-                        ? "bg-blue-900/50 text-blue-300"
-                        : "text-white hover:bg-gray-800"
+                        ? "bg-blue-900/50 text-blue-300 border-l-4 border-blue-400 pl-3"
+                        : "text-gray-300 hover:bg-gray-800 hover:text-blue-300"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
