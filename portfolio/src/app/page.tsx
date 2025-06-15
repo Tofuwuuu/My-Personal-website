@@ -38,6 +38,7 @@ export default function Home() {
                 sizes="(max-width: 768px) 100vw, 256px"
                 priority
                 className="transition-transform duration-500 group-hover:scale-110"
+                unoptimized
               />
             </div>
           </div>
